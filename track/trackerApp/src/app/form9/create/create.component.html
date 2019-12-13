@@ -1,0 +1,95 @@
+<!-- Content -->
+
+<div class="content">
+  <!-- Animated -->
+  <div class="animated fadeIn">
+
+  <div class="card">
+                      <div class="card-body">
+                          <div class="custom-tab">
+
+                              <app-navigation></app-navigation>
+                              <div class="tab-content pt-2" id="nav-tabContent">
+                                  <div class="tab-pane fade show active">
+
+      <div class="box-border p-4 mb-3 mt-3">
+              <h4 class="mb-4"> <strong> Zuordnung InvProg/Nutzer verwalten </strong> </h4>
+          <div class="p-4 pb-0 mb-2">
+            <form [formGroup]="form" (submit)="onSaveInvestmentProgram()" *ngIf="!isLoading">
+
+                  <div class="form-group">
+                      <div class="row">
+                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Investitionsprogramm.Name
+:</label>
+                        <div class="col-lg-9" *ngIf="investmentProgram">
+                          <select class="form-control" formControlName="investment_program_name" >
+                              <option *ngFor="let investmentData of investments_list" [value] ="investmentData._id" [selected]="investmentData._id ==investmentProgram.investment_program_name" > {{ investmentData.name }} </option>
+                          </select>
+                          <P *ngIf="form.get('investment_program_name').invalid">Please enter Investment Program Name.</P>
+                        </div>
+
+                        <div class="col-lg-9" *ngIf="!investmentProgram">
+                          <select class="form-control" formControlName="investment_program_name">
+                              <option *ngFor="let investmentData of investments_list" [value] ="investmentData._id"  > {{ investmentData.name }} </option>
+                          </select>
+                          <P *ngIf="form.get('investment_program_name').invalid">Please enter Investment Program Name.</P>
+                        </div>
+                      </div>
+                  </div> <!-- form-group -->
+
+                  <div class="form-group">
+                      <div class="row">
+                  <label class="col-lg-3 d-flex align-items-center fw-600" for="">Nutzer.Name:</label>
+                    <div class="col-lg-9" *ngIf="investmentProgram">
+                      <select class="form-control" formControlName="user" >
+                          <option *ngFor="let userData of users_list" [value] ="userData._id" [selected]="userData.id ==investmentProgram.user" > {{ userData.name }} </option>
+                      </select>
+                      <P *ngIf="form.get('user').invalid">Please enter user.</P>
+                    </div>
+
+                    <div class="col-lg-9" *ngIf="!investmentProgram">
+                      <select class="form-control" formControlName="user">
+                          <option *ngFor="let userData of users_list" [value] ="userData._id"  > {{ userData.name }} </option>
+                      </select>
+                      <P *ngIf="form.get('user').invalid">Please enter user.</P>
+                    </div>
+                   </div>
+                  </div> <!-- form-group -->
+
+                  <div class="form-group">
+                      <div class="row">
+                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Betrag:</label>
+                        <div class="col-lg-9">
+                          <input type="text" class="form-control" id="" placeholder="Enter Betrag"  formControlName="amount">
+                          <P *ngIf="form.get('amount').invalid">Please enter amount.</P>
+                        </div>
+                      </div>
+                  </div> <!-- form-group -->
+
+                  <div class="form-group mt-5">
+                  <div class="row">
+                    <div class="col-md-12 text-right">
+                      <button type="submit" class="btn btn-primary btn-width d-inline-block">save </button>
+                    </div>
+                  </div>
+
+                  </div> <!-- form-group -->
+              </form>
+          </div>
+      </div> <!-- border-box -->
+
+
+                                  </div> <!--tab closed -->
+
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+
+
+  </div>
+  <!-- .animated -->
+</div>
+<!-- /.content -->
+

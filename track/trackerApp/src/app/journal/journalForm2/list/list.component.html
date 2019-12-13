@@ -1,0 +1,101 @@
+<!-- Content -->
+
+<div class="content">
+  <!-- Animated -->
+  <div class="animated fadeIn">
+
+  <div class="card">
+                      <div class="card-body">
+                          <div class="custom-tab">
+                              <app-navigation></app-navigation>
+                              <div class="tab-content pt-2" id="nav-tabContent">
+      <div class="tab-pane fade show active">
+         <div class="box-border p-4 mb-3 mt-3">
+              <h4 class="mb-4"> <strong> Mittelabfluss planen </strong> </h4>
+
+          <div class="p-4 pb-0 mb-2">
+               <form [formGroup]="form">
+
+                  <div class="form-group">
+                      <div class="row">
+                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Maßnahme:</label>
+                        <div class="col-lg-4">
+                          <input type="text" class="form-control" id="" placeholder="IA-Nummer" name="name" formControlName="name" required>
+                        </div>
+                        <div class="col-lg-5">
+                          <input type="text" class="form-control" id="" placeholder="Maßnahme.Name" name="" required>
+                        </div>
+                      </div>
+                  </div> <!-- form-group -->
+                  <div class="form-group">
+                      <div class="row">
+                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Betrag gesamt:</label>
+                        <div class="col-lg-9">
+                          <input type="text" class="form-control" id="" placeholder="Betrag gesamt" name="" required>
+                        </div>
+                      </div>
+                  </div> <!-- form-group -->
+
+                  <div class="mt-4 mb-2">
+              <div class="table table-bordered">
+              <table class="table">
+                          <thead>
+                              <tr>
+                                   <th>bis einschl. Vorjahr</th>
+                                   <th>akt. HH-Jahr  </th>
+                                   <th>+1 </th>
+                                   <th>+2 </th>
+                                   <th>+3 </th>
+                                   <th>Zeilensumme </th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td><input type="text" class="form-control" id="" placeholder="" value="5000000" name="" required></td>
+                                  <td><input type="text" class="form-control" id="" placeholder="" value="5000000" name="" required></td>
+                                  <td><input type="text" class="form-control" id="" placeholder="" value="4000000" name="" required></td>
+                                  <td><input type="text" class="form-control" id="" placeholder="" value="4000000" name="" required></td>
+                                  <td><input type="text" class="form-control" id="" placeholder="" value="" name="" required></td>
+                                  <td><input type="text" class="form-control" id="" placeholder="" value="13000000" name="" required></td>
+                              </tr>
+                              <tr>
+                                  <td colspan="4"> </td>
+                                  <td>Differenz</td>
+                                  <td><input type="text" class="form-control" id="" placeholder="" value="15000000" name="" required></td>
+                              </tr>
+
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+
+                  <div class="form-group mt-5">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <button class="btn btn-primary btn-width d-inline-block">Neu  </button>
+                          <button class="btn btn-primary btn-width d-inline-block">Löschen </button>
+                      </div>
+                      <div class="col-md-6 text-right">
+                          <button class="btn btn-primary btn-width d-inline-block">Abbrechen  </button>
+                          <button class="btn btn-primary btn-width d-inline-block">Speichern </button>
+                      </div>
+                  </div>
+
+                  </div> <!-- form-group -->
+              </form>
+          </div>
+      </div> <!-- border-box -->
+
+       </div> <!--tab closed -->
+
+          </div>
+
+          </div>
+          </div>
+       </div>
+
+
+  </div>
+  <!-- .animated -->
+</div>
+<!-- /.content -->

@@ -1,0 +1,64 @@
+ <!-- Content -->
+
+ <div class="content">
+  <!-- Animated -->
+  <div class="animated fadeIn">
+
+  <div class="card">
+                      <div class="card-body">
+                          <div class="custom-tab">
+
+                            <app-navigation></app-navigation>
+                              <div class="tab-content pt-2" id="nav-tabContent">
+                                  <div class="tab-pane fade show active">
+
+     <div class="box-border p-4 mb-3 mt-3">
+              <h4 class="mb-4"> <strong> Einzelplan verwalten </strong> </h4>
+          <div class="p-4 pb-0 mb-2">
+            <form [formGroup]="form" (submit)="onSavePlan()" *ngIf="!isLoading">
+
+                  <div class="form-group">
+                      <div class="row">
+                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Name:</label>
+                        <div class="col-lg-9">
+                          <input type="text" class="form-control" id="name" placeholder="Enter name" name="" formControlName="name">
+                          <p *ngIf="form.get('name').invalid">Please enter name</p>
+                        </div>
+                      </div>
+                  </div> <!-- form-group -->
+                  <div class="form-group">
+                      <div class="row">
+                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Einzelplan:</label>
+                        <div class="col-lg-9">
+                          <input type="text" class="form-control" id="section" placeholder="Enter Section" name="" formControlName="section">
+                          <p *ngIf="form.get('section').invalid">Please enter section</p>
+                        </div>
+                      </div>
+                  </div> <!-- form-group -->
+
+                  <div class="form-group mt-5">
+                  <div class="row">
+                    <div class="col-md-12 text-right">
+                      <button type="submit" class="btn btn-primary btn-width d-inline-block">save </button>
+                    </div>
+                  </div>
+
+                  </div> <!-- form-group -->
+              </form>
+          </div>
+      </div> <!-- border-box -->
+
+
+                                  </div> <!--tab closed -->
+
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+
+
+  </div>
+  <!-- .animated -->
+</div>
+<!-- /.content -->

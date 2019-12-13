@@ -1,0 +1,114 @@
+<!-- Content -->
+
+<div class="content">
+
+  <!-- Animated -->
+
+  <div class="animated fadeIn">
+
+      <div class="card">
+
+          <div class="card-body">
+
+              <div class="custom-tab">
+
+                <app-navigation></app-navigation>
+
+                  <div class="tab-content pt-2" id="nav-tabContent">
+
+                      <div class="tab-pane fade show active" id="custom-form-tab1" role="tabpanel" aria-labelledby="form-tab1">
+
+                          <div class="box-border p-4 mb-3 mt-3">
+
+                              <h4 class="mb-4"> <strong> Unterkategorie verwalten</strong> </h4>
+
+                              <div class="col-md-12 d-flex justify-content-end">
+                                  <div class="btn-group mb-4">
+
+                                              <a class="btn btn-success" routerLink="/form13/add" >
+                                                  <i class="fa fa-plus"></i> Add
+                                              </a>
+
+                                  </div>
+                              </div>
+                              <mat-spinner *ngIf="isLoading"></mat-spinner>
+                              <div class="mt-4 mb-2" *ngIf="subCategorys.length > 0 && !isLoading">
+
+                                  <div class="table table-bordered">
+
+                                      <table class="table">
+
+                                          <thead>
+
+                                              <tr>
+
+                                                  <th>Name</th>
+                                                  <th>Hauptkategorie</th>
+                                                  <th>Action</th>
+
+                                              </tr>
+
+                                          </thead>
+
+                                          <tbody>
+
+                                              <tr *ngFor="let subCategory of subCategorys">
+
+                                                  <td>{{subCategory.name}}</td>
+
+                                                  <td>{{subCategory.category}}</td>
+
+                                                  <td>
+                                                      <a  [routerLink]="['/form13/edit', subCategory.id]"><i class="fa fa-pencil"></i></a> &nbsp;
+                                                      <a *ngIf="subCategory.status ==1"
+                                                      mwlConfirmationPopover
+                                                      [popoverTitle]="popoverTitle"
+                                                      [popoverMessage]="popoverMessage"
+                                                      placement="left"
+                                                      (confirm)="confirmClicked = true"
+                                                      (cancel)="cancelClicked = true"
+                                                      ><i class="fa fa-trash"></i></a>
+
+                                                      <a *ngIf="subCategory.status == 0"
+                                                      (click) = "onDelete(subCategory.id)"
+                                                      ><i class="fa fa-trash"></i></a>
+                                                  </td>
+
+                                              </tr>
+
+                                          </tbody>
+
+                                      </table>
+
+                                  </div>
+
+
+                              </div>
+                              <h2  *ngIf="subCategorys.length <= 0 && !isLoading">No subCategorys added yet!</h2>
+                              <mat-paginator [length]="totalSubCategorys" [pageSize]="subCategorysPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
+*ngIf="subCategorys.length > 0"></mat-paginator>
+
+                          </div>
+
+
+
+                          <!-- border-box -->
+
+                      </div>
+                      <!--tab closed -->
+
+                  </div>
+
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+  <!-- .animated -->
+
+</div>
+
+<!-- /.content -->

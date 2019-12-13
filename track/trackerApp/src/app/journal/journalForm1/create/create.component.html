@@ -1,0 +1,583 @@
+<!-- Content -->
+<div class="content">
+    <!-- Animated -->
+    <div class="animated fadeIn">
+       <div class="card">
+          <div class="card-body">
+             <div class="custom-tab">
+                <!-- <app-navigation></app-navigation> -->
+                <div class="tab-content pt-2" id="nav-tabContent">
+                   <div class="tab-pane fade show active">
+                      <div class="box-border p-4 mb-3 mt-3">
+                         <h4 class="mb-4"> <strong> Journal </strong> </h4>
+                         <div class="pb-0 mb-2">
+                          <form [formGroup]="form" (submit)="onSaveJournal()" *ngIf="!isLoading">
+                               <div class="box-border bg-white p-4 mb-3 mt-3">
+                                  <h4 class="mb-4"> <strong> Journal-Eintrag </strong> </h4>
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Zuordnung zur MN<span class="red-txt">*</span>, TeilMN, Nachtrag
+                                        :</label>
+                                        <div class="col-lg-9" *ngIf="journal">
+                                           <select class="form-control" formControlName="construction" (change)="onChangeCategory($event.target.value)">
+                                           <option *ngFor="let constructionData of constructions_list" [value] ="constructionData._id" [selected]="constructionData._id ==journal.construction" > {{ constructionData.name }} </option>
+                                           </select>
+                                           <P *ngIf="form.get('construction').invalid">Please enter construction.</P>
+                                        </div>
+                                        <div class="col-lg-9" *ngIf="!journal">
+                                           <select class="form-control" formControlName="construction" (change)="onChangeConstruction($event.target.value)">
+                                           <option *ngFor="let constructionData of constructions_list" [value] ="constructionData._id" > {{ constructionData.name }} </option>
+                                           </select>
+                                           <P *ngIf="form.get('construction').invalid">Please enter construction.</P>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Datum<span class="red-txt">*</span>:</label>
+                                        <div class="col-lg-4">
+                                           <input type="text" class="form-control" [matDatepicker]="myDatepicker"
+                                              formControlName="journaldDate" style="width: 80%;float: left"  readonly>
+                                           <mat-datepicker-toggle [for] = "myDatepicker" matSuffix style="float: left"></mat-datepicker-toggle>
+                                           <mat-datepicker #myDatepicker ></mat-datepicker>
+                                           <br/><br/><br/>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Hauptkategorie<span class="red-txt">*</span>:</label>
+                                        <div class="col-lg-9" *ngIf="journal">
+                                           <select class="form-control" formControlName="category" (change)="onChangeCategory($event.target.value)">
+                                           <option *ngFor="let category of categorys_list" [value]="category._id" [selected]="category._id ==journal.category" > {{category.name}} </option>
+                                           </select>
+                                           <P *ngIf="form.get('category').invalid">Please enter category.</P>
+                                        </div>
+                                        <div class="col-lg-9" *ngIf="!journal">
+                                           <select class="form-control" formControlName="category" (change)="onChangeCategory($event.target.value)">
+                                           <option *ngFor="let category of categorys_list" [value]="category._id">{{category.name}}</option>
+                                           </select>
+                                           <P *ngIf="form.get('category').invalid">Please enter category.</P>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Unterkategorie<span class="red-txt">*</span>:</label>
+                                        <div class="col-lg-9" *ngIf="journal">
+                                           <select class="form-control" formControlName="subCategory">
+                                           <option *ngFor="let subCategory of subCategorys_list" [value]="subCategory._id" [selected]="subCategory._id == journal.subCategory"> {{subCategory.name}} </option>
+                                           </select>
+                                           <P *ngIf="form.get('subCategory').invalid">Please enter sub category.</P>
+                                        </div>
+                                        <div class="col-lg-9" *ngIf="!journal">
+                                           <select class="form-control" formControlName="subCategory">
+                                           <option *ngFor="let subCategory of subCategorys_list" [value]="subCategory._id"> {{subCategory.name}} </option>
+                                           </select>
+                                           <P *ngIf="form.get('subCategory').invalid">Please enter sub category.</P>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Erläuterung:</label>
+                                        <div class="col-lg-9">
+                                           <textarea class="form-control" rows="5" formControlName="explanation"></textarea>
+                                           <P *ngIf="form.get('explanation').invalid">Please enter sub explanation.</P>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Einzelplan
+                                        :</label>
+                                        <div class="col-lg-9" *ngIf="journal">
+                                           <select class="form-control" formControlName="plan" >
+                                           <option *ngFor="let planData of plans_list" [value] ="planData._id" [selected]="planData._id ==journal.plan" > {{ planData.name }} </option>
+                                           </select>
+                                           <P *ngIf="form.get('plan').invalid">Please enter plan</P>
+                                        </div>
+                                        <div class="col-lg-9" *ngIf="!journal">
+                                           <select class="form-control" formControlName="plan">
+                                           <option *ngFor="let planData of plans_list" [value] ="planData._id"  > {{ planData.name }} </option>
+                                           </select>
+                                           <P *ngIf="form.get('plan').invalid">Please enter Investment plan.</P>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Auswahl Betragsart:</label>
+                                        <div class="col-lg-3" *ngIf="journal">
+                                           <select class="form-control" formControlName="amountType">
+                                              <option value="Prognose-Betrag" [selected]="'Prognose-Betrag' ==journal.amountType">Prognose-Betrag</option>
+                                              <option value="Beauftragter Betrag" [selected]="'Beauftragter Betrag' ==journal.amountType">Beauftragter Betrag</option>
+                                              <option value="HHR anerkannter Betrag" [selected]="'HHR anerkannter Betrag' ==journal.amountType">HHR anerkannter Betrag</option>
+                                           </select>
+                                           <P *ngIf="form.get('amountType').invalid">Please select Amount Type.</P>
+                                        </div>
+
+                                        <div class="col-lg-3" *ngIf="!journal">
+                                          <select class="form-control" formControlName="amountType">
+                                             <option value="Prognose-Betrag">Prognose-Betrag</option>
+                                             <option value="Beauftragter Betrag">Beauftragter Betrag</option>
+                                             <option value="HHR anerkannter Betrag">HHR anerkannter Betrag</option>
+                                          </select>
+                                          <P *ngIf="form.get('amountType').invalid">Please select Amount Type.</P>
+                                       </div>
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Beauftragter Betrag
+                                        :</label>
+                                        <div class="col-lg-3">
+                                           <input type="text" class="form-control" id="" placeholder="Enter Betrag" formControlName="amount" [(ngModel)]="amountValue">
+                                           <P *ngIf="form.get('amount').invalid">Please enter Amount.</P>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 offset-lg-6 d-flex align-items-center fw-600" for="">IST-Kosten
+                                        :</label>
+                                        <div class="col-lg-3">
+                                           <input type="text" class="form-control" id="" placeholder="Enter Betrag" formControlName="actualCost" [(ngModel)]="actulalAmount">
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 offset-lg-6 d-flex align-items-center fw-600" for="">Summe
+                                        :</label>
+                                        <div class="col-lg-3">
+                                           <input type="text" class="form-control" placeholder="Enter Betrag"  value="{{ amountValue*1  + actulalAmount*1  }}" readonly>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group" *ngIf="actulalAmount">
+                                     <div class="row">
+                                        <div class="col-lg-3">
+                                           <a class="btn btn-success" (click)="openModal(template)" >
+                                           <i class="fa fa-plus"></i> Add
+                                           </a>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <a class="btn btn-success" (click)="openModal(template1)" >
+                                            <i class="fa fa-plus"></i> Add
+                                            </a>
+                                         </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Letzte Bearbeitung:</label>
+                                        <div class="col-lg-5">
+                                           <input type="text" class="form-control" placeholder="Auto-Text für Name" formControlName="lastChange">
+                                           <P *ngIf="form.get('lastChange').invalid">Please enter Last Change.</P>
+                                        </div>
+                                        <div class="col-lg-4">
+                                           <input type="text" class="form-control"  placeholder="Auto-Text für Name" value="{{today | date:'dd-MM-yyyy'}}" readonly>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                               </div>
+                               <!-- white border box -->
+                               <div class="box-border bg-white p-4 mb-3 mt-3">
+                                  <h4 class="mb-4"> <strong> Maßnahmen-Überblick </strong> </h4>
+                                  <div class="mt-4 mb-4">
+                                     <div class="table table-bordered">
+                                        <table class="table">
+                                           <thead>
+                                              <tr>
+                                                 <th>Zuordnung</th>
+                                                 <th>HHR anerk. Betrag </th>
+                                                 <th>Beauftr. Betrag </th>
+                                                 <th>Prognose-Betrag  </th>
+                                                 <th>IST-Kosten </th>
+                                              </tr>
+                                           </thead>
+                                           <tbody>
+                                              <tr>
+                                                 <td>Name der Maßnahme</td>
+                                                 <td>12.000.000</td>
+                                                 <td> </td>
+                                                 <td>  </td>
+                                                 <td>8.400.037  </td>
+                                              </tr>
+                                              <tr>
+                                                 <td>1. Nachtrag zur Maßnahme </td>
+                                                 <td>
+                                                    800.000
+                                                 </td>
+                                                 <td> </td>
+                                                 <td>  </td>
+                                                 <td>  </td>
+                                              </tr>
+                                              <tr>
+                                                 <td>2. Nachtrag zur Maßnahme </td>
+                                                 <td> </td>
+                                                 <td>400.000 </td>
+                                                 <td>  </td>
+                                                 <td>  </td>
+                                              </tr>
+                                              <tr>
+                                                 <td>3. Nachtrag zur Maßnahme </td>
+                                                 <td> </td>
+                                                 <td>
+                                                 </td>
+                                                 <td>200.000 </td>
+                                                 <td>  </td>
+                                              </tr>
+                                              <tr>
+                                                 <td> <strong>Summe</strong> </td>
+                                                 <td> <strong>12.800.000</strong></td>
+                                                 <td> <strong>400.000</strong> </td>
+                                                 <td> <strong>200.000</strong> </td>
+                                                 <td> <strong>8.400.037</strong> </td>
+                                              </tr>
+                                           </tbody>
+                                        </table>
+                                     </div>
+                                  </div>
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Gesamtbaukosten
+                                        :</label>
+                                        <div class="col-lg-5 offset-lg-4 text-right">
+                                           <input type="text" class="form-control" id="" placeholder="Auto-Summe" name="" required>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Gerätekosten (sofern vorhanden)
+                                        :</label>
+                                        <div class="col-lg-5 offset-lg-4 text-right">
+                                           <input type="text" class="form-control" id="" placeholder="Auto-Summe" name="" required>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                                  <div class="form-group">
+                                     <div class="row">
+                                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Gesamtkosten
+                                        :</label>
+                                        <div class="col-lg-5 offset-lg-4 text-right">
+                                           <input type="text" class="form-control" id="" placeholder="Auto-Summe" name="" required>
+                                        </div>
+                                     </div>
+                                  </div>
+                                  <!-- form-group -->
+                               </div>
+                               <!-- white border box -->
+                               <div class="form-group mt-5">
+                                  <div class="row">
+                                     <div class="col-md-12 text-right">
+                                        <button type="submit" class="btn btn-primary btn-width d-inline-block">save</button>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- form-group -->
+                            </form>
+                         </div>
+                      </div>
+                      <!-- border-box -->
+                   </div>
+                   <!--tab closed -->
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <!-- .animated -->
+ </div>
+ <!-- /.content -->
+
+
+
+<!-- start Plan cash outflow (form 2)  -->
+ <ng-template #template>
+    <div class="modal-header">
+       <h4 class="modal-title pull-left">Mittelabfluss planen</h4>
+       <button type="button" class="close pull-right" aria-label="close" (click)="modalRef.hide()">
+       <i class="fa fa-times" aria-hidden="true"></i>
+       </button>
+    </div>
+    <div class="modal-body">
+       <div class="p-4 pb-0 mb-2">
+
+             <div class="form-group">
+                <div class="row">
+                   <label class="col-lg-3 d-flex align-items-center fw-600" for="">Maßnahme:</label>
+                   <div class="col-lg-4">
+                      <input type="text" class="form-control" id="" placeholder="IA-Nummer" value = "{{ interiorRef }}" readonly>
+                   </div>
+                   <div class="col-lg-5">
+                      <input type="text" class="form-control" id="" placeholder="Maßnahme.Name"  value = "{{ projectName }}" readonly>
+                   </div>
+                </div>
+             </div>
+             <!-- form-group -->
+             <div class="form-group">
+                <div class="row">
+                   <label class="col-lg-3 d-flex align-items-center fw-600" for="">Betrag gesamt:</label>
+                   <div class="col-lg-9">
+                      <input type="text" class="form-control" id="" placeholder="Betrag gesamt" value = "{{ amountValue*1  + actulalAmount*1  }}" readonly>
+                   </div>
+                </div>
+             </div>
+             <!-- form-group -->
+             <div class="mt-4 mb-2">
+                <div class="table table-bordered table-responsive newtable">
+                   <table class="table">
+                      <thead>
+                         <tr>
+
+                            <th *ngFor="let flowValue of cashOutflowArray">
+                                {{flowValue.item_text}}
+                            </th>
+                            <th>Zeilensumme </th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                         <tr>
+                            <td *ngFor="let flowValue of cashOutflowArray">
+                                <input type="text" class="form-control" id="{{flowValue.item_id}}" placeholder=""  [(ngModel)]="flowValue.value">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="" placeholder="" value = "{{ getTotal() }}" readonly>
+                            </td>
+                         </tr>
+                         <tr>
+                            <td colspan="4"> </td>
+                            <td>Differenz</td>
+                            <td><input type="text" class="form-control" id="" placeholder="" value="15000000" name="" required></td>
+                         </tr>
+                      </tbody>
+                   </table>
+                </div>
+             </div>
+             <div class="form-group mt-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary btn-width d-inline-block" (click)="onAddYear()">Neu</button>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button type="submit" class="btn btn-primary btn-width d-inline-block">save</button>
+                     </div>
+                </div>
+             </div>
+             <!-- form-group -->
+
+       </div>
+    </div>
+ </ng-template>
+
+<!-- end Plan cash outflow (form 2)  -->
+
+
+
+
+<!-- start financing  (form 3)  -->
+<ng-template #template1>
+    <div class="modal-header">
+       <h4 class="modal-title pull-left">Finanzierung</h4>
+       <button type="button" class="close pull-right" aria-label="close" (click)="modalRef.hide()">
+       <i class="fa fa-times" aria-hidden="true"></i>
+       </button>
+    </div>
+    <div class="modal-body">
+       <div class="tab-content pt-2" id="nav-tabContent">
+          <div class="tab-pane fade show active">
+             <div class="box-border p-4 mb-3 mt-3">
+                <h4 class="mb-4"> <strong> Finanzierung </strong> </h4>
+                <div class="p-4 pb-0 mb-2">
+                   <form [formGroup]="form">
+                      <div class="form-group">
+                         <div class="row">
+                            <label class="col-lg-3 d-flex align-items-center fw-600" for="">Maßnahme:</label>
+                            <div class="col-lg-4">
+                               <input type="text" class="form-control" id="" placeholder="IA-Nummer" value="{{ interiorRef }}" readonly>
+                            </div>
+                            <div class="col-lg-5">
+                               <input type="text" class="form-control" id="" placeholder="Maßnahme.Name" value="{{ projectName }}" readonly>
+                            </div>
+                         </div>
+                      </div>
+                      <!-- form-group -->
+                      <div class="form-group">
+                         <div class="row">
+                            <label class="col-lg-3 d-flex align-items-center fw-600" for="">Betrag gesamt:</label>
+                            <div class="col-lg-9">
+                               <input type="text" class="form-control" id="" placeholder="Betrag gesamt" value = "{{ amountValue*1  + actulalAmount*1  }}" readonly>
+                            </div>
+                         </div>
+                      </div>
+                      <!-- form-group -->
+                      <div class="row">
+                         <div class="col-md-6 d-flex">
+                            <div class="box-border w-100 bg-white p-4 mb-3 mt-3">
+                               <h4 class="mb-4"> <strong> Zuführungs-Sicht </strong> </h4>
+                               <div class="form-group">
+                                  <div class="row">
+                                     <label class="col-lg-3 d-flex align-items-center fw-600" for="">Land
+                                     :</label>
+                                     <div class="col-lg-4 offset-lg-5">
+                                        <input type="text" class="form-control" id="" placeholder="Enter Land" name="" required>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- form-group -->
+                               <div class="form-group">
+                                  <div class="row">
+                                     <label class="col-lg-3 d-flex align-items-center fw-600" for="">Zuführungen<span class="red-txt">*</span>
+                                     :</label>
+                                     <div class="col-lg-5">
+                                        <select class="form-control" id="">
+                                           <option> Hochsch </option>
+                                           <option> Option 2 </option>
+                                           <option> Option 3 </option>
+                                           <option> Option 4 </option>
+                                        </select>
+                                     </div>
+                                     <div class="col-lg-4">
+                                        <input type="text" class="form-control" id="" placeholder="" name="" value="2000000
+                                           " required>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- form-group -->
+                               <div class="form-group">
+                                  <div class="row">
+                                     <div class="col-lg-5 offset-lg-3">
+                                        <select class="form-control" id="">
+                                           <option> Sepp </option>
+                                           <option> Option 1 </option>
+                                           <option> Option 2 </option>
+                                           <option> Option 3 </option>
+                                        </select>
+                                     </div>
+                                     <div class="col-lg-4">
+                                        <input type="text" class="form-control" id="" placeholder="" name="" value="1800000
+                                           " required>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- form-group -->
+                               <div class="form-group">
+                                  <div class="row">
+                                     <div class="col-lg-5 offset-lg-3">
+                                        <select class="form-control" id="">
+                                           <option> Fritz </option>
+                                           <option> Option 1 </option>
+                                           <option> Option 2</option>
+                                           <option> Option 3 </option>
+                                        </select>
+                                     </div>
+                                     <div class="col-lg-4">
+                                        <input type="text" class="form-control" id="" placeholder="" name="" value="1200000
+                                           " required>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- form-group -->
+                               <div class="form-group">
+                                  <div class="row">
+                                     <label class="col-lg-6 d-flex align-items-center fw-600" for="">Summe Land+Zuführungen
+                                     :</label>
+                                     <div class="col-lg-6 text-right">
+                                        <input type="text" class="form-control" id="" placeholder="" value="60000000" name="" required>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- form-group -->
+                               <div class="form-group">
+                                  <div class="row">
+                                     <label class="col-lg-6 d-flex align-items-center fw-600" for="">Differenz
+                                     :</label>
+                                     <div class="col-lg-6 text-right">
+                                        <input type="text" class="form-control" id="" placeholder="" value="0" name="" required>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- form-group -->
+                            </div>
+                         </div>
+                         <div class="col-lg-6 d-flex">
+                            <div class="box-border w-100 bg-white p-4 mb-3 mt-3">
+                               <h4 class="mb-4"> <strong> Investitionsprogramm-Sicht </strong> </h4>
+                               <div class="form-group">
+                                  <div class="row">
+                                     <div class="col-lg-6">
+                                        <select class="form-control" id="">
+                                           <option> Heureka I </option>
+                                           <option> Option 2 </option>
+                                           <option> Option 3 </option>
+                                           <option> Option 4 </option>
+                                        </select>
+                                     </div>
+                                     <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="" placeholder="" name="" value="30000000
+                                           " required>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- form-group -->
+                               <div class="form-group">
+                                  <div class="row">
+                                     <div class="col-lg-6">
+                                        <select class="form-control" id="">
+                                           <option> COME </option>
+                                           <option> Option 2 </option>
+                                           <option> Option 3 </option>
+                                           <option> Option 4 </option>
+                                        </select>
+                                     </div>
+                                     <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="" placeholder="" name="" value="500000
+                                           " required>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- form-group -->
+                               <div class="form-group">
+                                  <div class="row">
+                                     <label class="col-lg-6 d-flex align-items-center fw-600" for="">Summe Investitionsprogramme
+                                     :</label>
+                                     <div class="col-lg-6 text-right">
+                                        <input type="text" class="form-control" id="" placeholder="" value="3500000
+                                           " name="" required>
+                                     </div>
+                                  </div>
+                               </div>
+                               <!-- form-group -->
+                            </div>
+                         </div>
+                      </div>
+                   </form>
+                </div>
+                <!-- white border box -->
+                <div class="form-group mt-5">
+                   <div class="row">
+                      <div class="col-md-12 text-right">
+                          <button type="submit" class="btn btn-primary btn-width d-inline-block">save</button>
+                       </div>
+                   </div>
+                </div>
+                <!-- form-group -->
+             </div>
+          </div>
+          <!-- border-box -->
+       </div>
+    </div>
+ </ng-template>
+ <!-- end financing  (form 3)  -->

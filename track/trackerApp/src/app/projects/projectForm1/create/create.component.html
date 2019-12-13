@@ -1,0 +1,302 @@
+<!-- Content -->
+<div class="content">
+  <!-- Animated -->
+  <div class="animated fadeIn">
+     <div class="card">
+        <div class="card-body">
+           <div class="custom-tab">
+
+              <div class="tab-content pt-2" id="nav-tabContent">
+                 <div class="tab-pane fade show active" id="custom-form-tab1" role="tabpanel" aria-labelledby="form-tab1">
+                    <div class="box-border p-4 mb-3 mt-3">
+                       <h4 class="mb-4"> <strong> Bau-Maßnahme oder Geräte-Maßnahme verwalten </strong> </h4>
+                       <div class="p-4 pb-0 mb-2">
+                          <form [formGroup]="form" (submit)="onSaveConstruction()" *ngIf="!isLoading">
+                          <div class="form-group">
+                             <div class="row">
+                                <label class="col-lg-3 d-flex align-items-center fw-600" for="">Name<span class="red-txt">*</span>:</label>
+                                <div class="col-lg-9">
+                                   <input type="text" class="form-control" placeholder="Enter name" formControlName="name">
+                                   <p *ngIf="form.get('name').invalid">Please enter name</p>
+                                </div>
+                             </div>
+                          </div>
+                          <!-- form-group -->
+                          <div class="form-group">
+                             <div class="row">
+                                <label class="col-lg-3 d-flex align-items-center fw-600" for="">Strasse/HNr.
+                                :</label>
+                                <div class="col-lg-9">
+                                   <input type="text" class="form-control" placeholder="Enter Strasse/HNr" formControlName="street">
+                                   <p *ngIf="form.get('street').invalid">Please enter street</p>
+                                </div>
+                             </div>
+                          </div>
+                          <!-- form-group -->
+                          <div class="form-group">
+                             <div class="row">
+                                <label class="col-lg-3 d-flex align-items-center fw-600" for="">AZ HMdF Abtlg IV<span class="red-txt">*</span>:</label>
+                                <div class="col-lg-9">
+                                   <input type="text" class="form-control" placeholder="Enter AZ HMdF Abtlg" formControlName="azHMdFDeptIV">
+                                   <p *ngIf="form.get('azHMdFDeptIV').invalid">Please enter street</p>
+                                </div>
+                             </div>
+                          </div>
+                          <!-- form-group -->
+                          <div class="form-group">
+                             <div class="row">
+                                <label class="col-lg-3 d-flex align-items-center fw-600" for="">Projektnr Partner:</label>
+                                <div class="col-lg-9">
+                                   <input type="text" class="form-control" placeholder="Enter Projektnr Partner" formControlName="projectNrPartner">
+                                   <p *ngIf="form.get('projectNrPartner').invalid">Please enter Projektnr Partner</p>
+                                </div>
+                             </div>
+                          </div>
+                          <!-- form-group -->
+                          <div class="form-group">
+                             <div class="row">
+                                <label class="col-lg-3 d-flex align-items-center fw-600" for="">Gerät:</label>
+                                <div class="col-lg-5">
+                                   <div class="checkbox">
+                                      <div class="custom-control custom-checkbox check-minus">
+                                         <input type="checkbox" class="custom-control-input" id="customCheck" formControlName="device" (click)="onCheck($event)">
+                                         <label class="custom-control-label font-400 font-18" for="customCheck"> </label>
+                                         <div class="mt-minus-5">Mit optionalem Bezug zu (Bau-) Maßnahme </div>
+                                      </div>
+                                   </div>
+                                </div>
+
+                                <div class="col-lg-4" *ngIf="construction && checkProject == 1">
+                                  <select class="form-control" formControlName="constructionName" >
+                                  <option *ngFor="let constructionShowData of constructionShow_list" [value] ="constructionShowData._id" [selected]="constructionShowData._id ==construction.constructionName" > {{ constructionShowData.name }} </option>
+                                  </select>
+
+                               </div>
+                               <div class="col-lg-4" *ngIf="!construction && checkProject == 1">
+                                  <select class="form-control" formControlName="constructionName">
+                                  <option *ngFor="let constructionShowData of constructionShow_list" [value] ="constructionShowData._id"  > {{ constructionShowData.name }} </option>
+                                  </select>
+
+                               </div>
+                             </div>
+                          </div>
+                          <!-- form-group -->
+                          <div class="form-group">
+                             <div class="row">
+                                <label class="col-lg-3 fw-600" for="">Maßnahmen-Verantwortlicher<span class="red-txt">*</span>
+                                :</label>
+                                <div class="col-lg-9">
+                                  <input type="text" class="form-control" placeholder="Enter Projektnr Partner" formControlName="ActionCoordinator">
+                                  <p *ngIf="form.get('ActionCoordinator').invalid">Please enter Action Coordinator</p>
+                                </div>
+                             </div>
+                          </div>
+                          <!-- form-group -->
+                          <div class="form-group">
+                             <div class="row">
+                                <label class="col-lg-3 d-flex align-items-center fw-600" for="">Datum der Aufnahme in
+                                :</label>
+                                <div class="col-lg-4">
+                                   <input type="text" class="form-control" [matDatepicker]="myDatepicker"
+                                      formControlName="recordingDate" style="width: 80%;float: left"  readonly>
+                                   <mat-datepicker-toggle [for] = "myDatepicker" matSuffix style="float: left"></mat-datepicker-toggle>
+                                   <mat-datepicker #myDatepicker ></mat-datepicker><br/><br/><br/>
+
+                                </div>
+                             </div>
+                          </div>
+                          <!-- form-group -->
+                          <div class="box-border bg-white p-4 mb-3 mt-3">
+                             <h4 class="mb-4"> <strong> Haushalts-Bezug </strong> </h4>
+                             <div class="form-group">
+                                <div class="row">
+                                   <label class="col-lg-3 d-flex align-items-center fw-600" for="">Ressort.Name<span class="red-txt">*</span>:</label>
+                                   <div class="col-lg-9" *ngIf="construction">
+                                      <select class="form-control" formControlName="ressort" >
+                                      <option *ngFor="let ressortData of ressorts_list" [value] ="ressortData._id" [selected]="ressortData._id ==construction.ressort" > {{ ressortData.name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('ressort').invalid">Please enter ressort.</P>
+                                   </div>
+                                   <div class="col-lg-9" *ngIf="!construction">
+                                      <select class="form-control" formControlName="ressort">
+                                      <option *ngFor="let ressortData of ressorts_list" [value] ="ressortData._id"  > {{ ressortData.name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('ressort').invalid">Please enter ressort.</P>
+                                   </div>
+                                </div>
+                             </div>
+                             <!-- form-group -->
+                             <div class="form-group">
+                                <div class="row">
+                                   <label class="col-lg-3  fw-600" for="">Auswahl der Einzelpläne<span class="red-txt">*</span>:</label>
+                                   <div class="col-lg-9" *ngIf="construction">
+                                      <select class="form-control" formControlName="section" >
+                                      <option *ngFor="let planData of plans_list" [value] ="planData._id" [selected]="planData._id ==construction.section" > {{ planData.name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('section').invalid">Please enter Section</P>
+                                   </div>
+                                   <div class="col-lg-9" *ngIf="!construction">
+                                      <select class="form-control" formControlName="section">
+                                      <option *ngFor="let planData of plans_list" [value] ="planData._id"  > {{ planData.name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('section').invalid">Please enter Investment Section.</P>
+                                   </div>
+                                </div>
+                             </div>
+                             <!-- form-group -->
+                             <div class="form-group">
+                                <div class="row">
+                                   <label class="col-lg-3  fw-600" for="">Produkt.Nummer<span class="red-txt">*</span>, Innenauftragnr, Haushaltstitel<span class="red-txt">*</span>:</label>
+                                   <div class="col-lg-3" *ngIf="construction">
+                                      <select class="form-control" formControlName="product" >
+                                      <option *ngFor="let productData of products_list" [value] ="productData._id" [selected]="productData._id ==construction.product" > {{ productData.name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('product').invalid">Please enter product</P>
+                                   </div>
+                                   <div class="col-lg-3" *ngIf="!construction">
+                                      <select class="form-control" formControlName="product">
+                                      <option *ngFor="let productData of products_list" [value] ="productData._id"  > {{ productData.name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('product').invalid">Please enter product.</P>
+                                   </div>
+                                   <div class="col-lg-3">
+
+                                      <input type="text" class="form-control" placeholder="Enter" formControlName="interiorRef">
+
+                                   </div>
+                                   <div class="col-lg-3" *ngIf="construction">
+                                      <select class="form-control" formControlName="title" >
+                                      <option *ngFor="let titleData of titles_list" [value] ="titleData._id" [selected]="titleData._id ==construction.title" > {{ titleData.name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('title').invalid">Please enter Section</P>
+                                   </div>
+                                   <div class="col-lg-3" *ngIf="!construction">
+                                      <select class="form-control" formControlName="title">
+                                      <option *ngFor="let titleData of titles_list" [value] ="titleData._id"  > {{ titleData.name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('title').invalid">Please enter title.</P>
+                                   </div>
+                                </div>
+                             </div>
+                             <!-- form-group -->
+                             <div class="form-group">
+                                <div class="row">
+                                   <label class="col-lg-3 fw-600" for="">Liste der Programme<span class="red-txt">*</span>:</label>
+                                   <div class="col-lg-9">
+                                    <ng-multiselect-dropdown
+                                    formControlName="programme"
+                                    [placeholder]="'custom placeholder'"
+                                    [data]="investments_list"
+                                    [settings]="investmentDropdownSettings"
+                                    (onSelect)="onInvestmentSelect($event)"
+                                    (onSelectAll)="onInvestmentSelectAll($event)"
+                                    [(ngModel)]="selectedPrograms"
+
+                                    >
+                                    </ng-multiselect-dropdown>
+                                    <P *ngIf="form.get('programme').invalid">Please enter Investment Program.</P>
+                                 </div>
+                                </div>
+                             </div>
+                             <!-- form-group -->
+                             <div class="form-group">
+                                <div class="row">
+                                   <label class="col-lg-3  fw-600" for="">Liste der Zuführungen<span class="red-txt">*</span>
+                                   :</label>
+                                   <div class="col-lg-9">
+                                      <ng-multiselect-dropdown
+                                      formControlName="feed"
+                                      [placeholder]="'custom placeholder'"
+                                      [data]="feeds_list"
+                                      [settings]="feedDropdownSettings"
+                                      (onSelect)="onItemSelect($event)"
+                                      (onSelectAll)="onSelectAll($event)"
+                                      [(ngModel)]="selectedFeeds"
+                                      >
+                                      </ng-multiselect-dropdown>
+                                      <P *ngIf="form.get('feed').invalid">Please enter feed.</P>
+                                   </div>
+                                </div>
+                             </div>
+                             <!-- form-group -->
+                             <div class="form-group">
+                                <div class="row">
+                                   <label class="col-lg-3 d-flex align-items-center fw-600" for="">Relevant für MFP
+                                   :</label>
+                                   <div class="col-lg-9">
+                                      <div class="checkbox">
+                                         <div class="custom-control custom-checkbox check-minus">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck2" formControlName="relevantForMFP">
+                                            <label class="custom-control-label font-400 font-18" for="customCheck2"></label>
+                                         </div>
+                                      </div>
+                                   </div>
+                                </div>
+                             </div>
+                             <!-- form-group -->
+                          </div>
+                          <!-- white border box -->
+                          <div class="box-border bg-white p-4 mb-3 mt-3">
+                             <h4 class="mb-4"> <strong> Nutzer-Bezug </strong> </h4>
+                             <div class="form-group">
+                                <div class="row">
+                                   <label class="col-lg-3 d-flex align-items-center fw-600" for="">Nutzer.Name<span class="red-txt">*</span>
+                                   :</label>
+                                   <div class="col-lg-9" *ngIf="construction">
+                                      <select class="form-control" formControlName="user" >
+                                      <option *ngFor="let userData of users_list" [value] ="userData._id" [selected]="userData._id ==construction.user" > {{ userData.name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('user').invalid">Please enter user.</P>
+                                   </div>
+                                   <div class="col-lg-9" *ngIf="!construction">
+                                      <select class="form-control" formControlName="user">
+                                      <option *ngFor="let userData of users_list" [value] ="userData._id"  > {{ userData.name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('user').invalid">Please enter user.</P>
+                                   </div>
+                                </div>
+                             </div>
+                             <!-- form-group -->
+                             <div class="form-group">
+                                <div class="row">
+                                   <label class="col-lg-3 d-flex align-items-center fw-600" for="">Standort.Name<span class="red-txt">*</span>
+                                   :</label>
+                                   <div class="col-lg-9" *ngIf="construction">
+                                      <select class="form-control" formControlName="location" >
+                                      <option *ngFor="let locationData of locations_list" [value] ="locationData._id" [selected]="locationData._id ==construction.location" > {{ locationData.site_name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('location').invalid">Please enter location.</P>
+                                   </div>
+                                   <div class="col-lg-9" *ngIf="!construction">
+                                      <select class="form-control" formControlName="location">
+                                      <option *ngFor="let locationData of locations_list" [value] ="locationData._id"  > {{ locationData.site_name }} </option>
+                                      </select>
+                                      <P *ngIf="form.get('location').invalid">Please enter location.</P>
+                                   </div>
+                                </div>
+                             </div>
+                             <!-- form-group -->
+                          </div>
+                          <!-- white border box -->
+                          <div class="form-group mt-5">
+                             <div class="row">
+                                <div class="col-md-12 text-right">
+                                   <button type="submit" class="btn btn-primary btn-width d-inline-block">save</button>
+                                </div>
+                             </div>
+                          </div>
+                          <!-- form-group -->
+                          </form>
+                       </div>
+                    </div>
+                    <!-- border-box -->
+                 </div>
+                 <!--tab closed -->
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+  <!-- .animated -->
+</div>
+<!-- /.content -->

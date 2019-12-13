@@ -1,0 +1,83 @@
+ <!-- Content -->
+
+ <div class="content">
+  <!-- Animated -->
+  <div class="animated fadeIn">
+
+  <div class="card">
+                      <div class="card-body">
+                          <div class="custom-tab">
+
+                              <app-navigation></app-navigation>
+                              <div class="tab-content pt-2" id="nav-tabContent">
+                                  <div class="tab-pane fade show active">
+
+      <div class="box-border p-4 mb-3 mt-3">
+      <h4 class="mb-4"> <strong> Kategorien verwalten </strong> </h4>
+                  <div class="p-4 pb-0 mb-2">
+                    <form [formGroup]="form" (submit)="onSaveManageCategory()" *ngIf="!isLoading">
+
+                  <div class="form-group">
+                      <div class="row">
+                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Hauptkategorie
+:</label>
+                        <div class="col-lg-9" *ngIf="manageCategory">
+                          <select class="form-control" formControlName="category" (change)="onChangeCategory($event.target.value)">
+                              <option *ngFor="let category of categorys_list" [value]="category._id" [selected]="category._id ==manageCategory.category" > {{category.name}} </option>
+                          </select>
+                          <P *ngIf="form.get('category').invalid">Please enter category.</P>
+                        </div>
+
+                        <div class="col-lg-9" *ngIf="!manageCategory">
+                          <select class="form-control" formControlName="category" (change)="onChangeCategory($event.target.value)">
+                            <option *ngFor="let category of categorys_list" [value]="category._id">{{category.name}}</option>
+                         </select>
+                          <P *ngIf="form.get('category').invalid">Please enter category.</P>
+                        </div>
+
+                      </div>
+                  </div> <!-- form-group -->
+
+                  <div class="form-group">
+                      <div class="row">
+                  <label class="col-lg-3 d-flex align-items-center fw-600" for="">Unterkategorie:</label>
+                        <div class="col-lg-9" *ngIf="manageCategory">
+                            <select class="form-control" formControlName="subCategory">
+                                <option *ngFor="let subCategory of subCategorys_list" [value]="subCategory._id" [selected]="subCategory._id == manageCategory.subCategory"> {{subCategory.name}} </option>
+                            </select>
+                            <P *ngIf="form.get('subCategory').invalid">Please enter sub category.</P>
+                        </div>
+                        <div class="col-lg-9" *ngIf="!manageCategory">
+                          <select class="form-control" formControlName="subCategory">
+                              <option *ngFor="let subCategory of subCategorys_list" [value]="subCategory._id"> {{subCategory.name}} </option>
+                          </select>
+                          <P *ngIf="form.get('subCategory').invalid">Please enter sub category.</P>
+                        </div>
+                      </div>
+                  </div> <!-- form-group -->
+
+                  <div class="form-group mt-5">
+                  <div class="row">
+                    <div class="col-md-12 text-right">
+                      <button type="submit" class="btn btn-primary btn-width d-inline-block">save </button>
+                    </div>
+                  </div>
+
+                  </div> <!-- form-group -->
+              </form>
+          </div>
+      </div> <!-- border-box -->
+
+                                  </div> <!--tab closed -->
+
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+
+
+  </div>
+  <!-- .animated -->
+</div>
+<!-- /.content -->

@@ -1,0 +1,108 @@
+<!-- Content -->
+
+<div class="content">
+
+  <!-- Animated -->
+
+  <div class="animated fadeIn">
+
+      <div class="card">
+
+          <div class="card-body">
+
+              <div class="custom-tab">
+
+                <app-navigation></app-navigation>
+
+                  <div class="tab-content pt-2" id="nav-tabContent">
+
+                      <div class="tab-pane fade show active" id="custom-form-tab1" role="tabpanel" aria-labelledby="form-tab1">
+
+                          <div class="box-border p-4 mb-3 mt-3">
+
+                              <h4 class="mb-4"> <strong> Unterkategorie verwalten</strong> </h4>
+
+
+
+                              <div class="p-4 pb-0 mb-2">
+
+                                  <form [formGroup]="form" (submit)="onSaveSubCategory()" *ngIf="!isLoading">
+
+                                      <div class="form-group">
+
+                                          <div class="row">
+
+                                              <label class="col-lg-3 d-flex align-items-center fw-600" for="">Category:</label>
+
+                                              <div class="col-lg-9" *ngIf="subCategory">
+                                                  <select class="form-control" formControlName="category" >
+                                                      <option *ngFor="let categoryData of categorys_list" [value] ="categoryData._id" [selected]="categoryData._id ==subCategory.category" > {{ categoryData.name }} </option>
+                                                  </select>
+                                                  <P *ngIf="form.get('category').invalid">Please enter category.</P>
+                                              </div>
+
+                                              <div class="col-lg-9" *ngIf="!subCategory">
+                                                  <select class="form-control" formControlName="category">
+                                                      <option *ngFor="let categoryData of categorys_list" [value] ="categoryData._id"  > {{ categoryData.name }} </option>
+                                                  </select>
+                                                  <P *ngIf="form.get('category').invalid">Please enter category.</P>
+                                              </div>
+
+                                          </div>
+
+                                      </div>
+                                      <!-- form-group -->
+
+                                      <div class="form-group">
+
+                                          <div class="row">
+
+                                              <label class="col-lg-3 d-flex align-items-center fw-600" for="">Name:</label>
+
+                                              <div class="col-lg-9">
+                                                  <input type="text" class="form-control" placeholder="Enter name"
+                                                  formControlName="name">
+                                                  <P *ngIf="form.get('name').invalid">Please enter title.</P>
+                                              </div>
+
+                                          </div>
+
+                                      </div>
+                                      <!-- form-group -->
+
+
+
+                                      <div class="form-group mt-5">
+                                          <div class="row">
+                                              <div class="col-md-12 text-right">
+                                                  <button type="submit" class="btn btn-primary btn-width d-inline-block">save</button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <!-- form-group -->
+
+                                  </form>
+
+                              </div>
+
+                          </div>
+                          <!-- border-box -->
+
+                      </div>
+                      <!--tab closed -->
+
+                  </div>
+
+              </div>
+
+          </div>
+
+      </div>
+
+  </div>
+
+  <!-- .animated -->
+
+</div>
+
+<!-- /.content -->

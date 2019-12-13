@@ -1,0 +1,95 @@
+ <!-- Content -->
+
+ <div class="content">
+  <!-- Animated -->
+  <div class="animated fadeIn">
+
+  <div class="card">
+                      <div class="card-body">
+                          <div class="custom-tab">
+
+                              <app-navigation></app-navigation>
+                              <div class="tab-content pt-2" id="nav-tabContent">
+                                  <div class="tab-pane fade show active">
+
+      <div class="box-border p-4 mb-3 mt-3">
+      <h4 class="mb-4"> <strong> Einzelplan-Ansatz verwalten </strong> </h4>
+          <div class="p-4 pb-0 mb-2">
+              <form [formGroup]="form" (submit)="onSaveSectionPlan()" *ngIf="!isLoading">
+
+                  <div class="form-group">
+                      <div class="row">
+                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Einzelplan
+:</label>
+                      <div class="col-lg-9" *ngIf="sectionPlan">
+                          <select class="form-control" formControlName="section" >
+                              <option *ngFor="let planData of plans_list" [value] ="planData._id" [selected]="planData._id ==sectionPlan.section" > {{ planData.name }} </option>
+                          </select>
+                          <P *ngIf="form.get('section').invalid">Please enter Section</P>
+                        </div>
+
+                        <div class="col-lg-9" *ngIf="!sectionPlan">
+                          <select class="form-control" formControlName="section">
+                              <option *ngFor="let planData of plans_list" [value] ="planData._id"  > {{ planData.name }} </option>
+                          </select>
+                          <P *ngIf="form.get('section').invalid">Please enter Investment Section.</P>
+                        </div>
+                      </div>
+                  </div> <!-- form-group -->
+
+
+                  <div class="form-group">
+                      <div class="row">
+                  <label class="col-lg-3 d-flex align-items-center fw-600" for="">Jahr:</label>
+                        <div class="col-lg-9" *ngIf="sectionPlan">
+                            <select class="form-control" formControlName="year" >
+                                <option *ngFor="let year of years" [value] ="year" [selected]="year ==sectionPlan.year" > {{ year }} </option>
+                            </select>
+                            <P *ngIf="form.get('year').invalid">Please enter year</P>
+                          </div>
+
+                          <div class="col-lg-9" *ngIf="!sectionPlan">
+                            <select class="form-control" formControlName="year">
+                                <option *ngFor="let year of years" [value] ="year"  > {{ year }} </option>
+                            </select>
+                            <P *ngIf="form.get('year').invalid">Please enter year.</P>
+                          </div>
+
+                      </div>
+                  </div> <!-- form-group -->
+
+                  <div class="form-group">
+                      <div class="row">
+                        <label class="col-lg-3 d-flex align-items-center fw-600" for="">Betrag:</label>
+                        <div class="col-lg-9">
+                            <input type="text" class="form-control" id="" placeholder="Enter Betrag"  formControlName="amount">
+                            <P *ngIf="form.get('amount').invalid">Please enter amount.</P>
+                        </div>
+                      </div>
+                  </div> <!-- form-group -->
+
+                  <div class="form-group mt-5">
+                  <div class="row">
+                    <div class="col-md-12 text-right">
+                      <button type="submit" class="btn btn-primary btn-width d-inline-block">save </button>
+                    </div>
+                  </div>
+
+                  </div> <!-- form-group -->
+              </form>
+          </div>
+      </div> <!-- border-box -->
+
+                                  </div> <!--tab closed -->
+
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+
+
+  </div>
+  <!-- .animated -->
+</div>
+<!-- /.content -->

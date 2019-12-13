@@ -1,0 +1,85 @@
+<!-- Content -->
+
+<div class="content">
+  <!-- Animated -->
+  <div class="animated fadeIn">
+
+  <div class="card">
+                      <div class="card-body">
+                          <div class="custom-tab">
+                          <app-navigation></app-navigation>
+                              <div class="tab-content pt-2" id="nav-tabContent">
+                                  <div class="tab-pane fade show active" id="custom-form-tab2" role="tabpanel" aria-labelledby="form-tab2">
+
+      <div class="box-border p-4 mt-3 mb-3">
+              <h4 class="mb-4"> <strong> Standort verwalten </strong> </h4>
+              <div class="col-md-12 d-flex justify-content-end">
+                <div class="btn-group mb-4">
+                  <a class="btn btn-success" routerLink="/form2/add" >
+                      <i class="fa fa-plus"></i> Add
+                  </a>
+                </div>
+              </div>
+              <mat-spinner *ngIf="isLoading"></mat-spinner>
+              <div class="mt-4 mb-2" *ngIf="locations.length > 0 && !isLoading">
+
+               <div class="table table-bordered">
+              <table class="table">
+                          <thead>
+                              <tr>
+                                  <th>Nutzer</th>
+                                  <th>Name</th>
+                                   <th>Adresse</th>
+                                   <th>Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let location of locations">
+
+                                  <td>{{location.user}}</td>
+
+                                  <td>{{location.site_name}}</td>
+                                  <td>{{location.place}}</td>
+                                  <td>
+                                      <a  [routerLink]="['/form2/edit', location.id]"><i class="fa fa-pencil"></i></a> &nbsp;
+
+                                      <a *ngIf="location.status ==1"
+                                                      mwlConfirmationPopover
+                                                      [popoverTitle]="popoverTitle"
+                                                      [popoverMessage]="popoverMessage"
+                                                      placement="left"
+                                                      (confirm)="confirmClicked = true"
+                                                      (cancel)="cancelClicked = true"
+                                                      ><i class="fa fa-trash"></i></a>
+
+                                                      <a *ngIf="location.status == 0"
+                                                      (click) = "onDelete(location.id)"
+                                                      ><i class="fa fa-trash"></i></a>
+
+                                  </td>
+
+                              </tr>
+                          </tbody>
+                      </table>
+          </div>
+      </div>
+      <h2  *ngIf="locations.length <= 0 && !isLoading">No locations added yet!</h2>
+      <mat-paginator [length]="totalLocations" [pageSize]="locationsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
+*ngIf="locations.length > 0"></mat-paginator>
+      </div> <!-- border-box -->
+
+
+                                  </div> <!--tab closed -->
+
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+
+
+  </div>
+  <!-- .animated -->
+</div>
+<!-- /.content -->
+

@@ -1,0 +1,125 @@
+<!-- Content -->
+
+<div class="content">
+  <!-- Animated -->
+  <div class="animated fadeIn">
+
+  <div class="card">
+                      <div class="card-body">
+                          <div class="custom-tab">
+
+                              <div class="tab-content pt-2" id="nav-tabContent">
+                                  <div class="tab-pane fade show active" id="custom-form-tab1" role="tabpanel" aria-labelledby="form-tab1">
+     <div class="box-border p-4 mb-3 mt-3">
+      <h4 class="mb-4"> <strong> Bau-Maßnahme oder Geräte-Maßnahme verwalten </strong> </h4>
+          <mat-spinner *ngIf="isLoading"></mat-spinner>
+          <div class="mt-4 mb-2" *ngIf="!isLoading">
+              <div class="table table-bordered">
+              <table class="table">
+                          <thead>
+                              <tr>
+                                   <th>Name</th>
+                                   <th>Description</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Name</td>
+                              <td>{{name}}</td>
+                            </tr>
+                            <tr>
+                              <td>Strasse/HNr.</td>
+                              <td>{{street}}</td>
+                            </tr>
+                            <tr>
+                              <td>AZ HMdF Abtlg IV</td>
+                              <td>{{azHMdFDeptIV}}</td>
+                            </tr>
+                            <tr>
+                              <td>Projektnr Partner</td>
+                              <td>{{projectNrPartner}}</td>
+                            </tr>
+                            <tr>
+                              <td>Gerät</td>
+                              <td>{{device}}</td>
+                            </tr>
+                            <tr>
+                                <td>Mit optionalem Bezug zu (Bau-) Maßnahme</td>
+                                <td>{{constructionName}}</td>
+                              </tr>
+                              <tr>
+                                  <td>Maßnahmen-Verantwortlicher</td>
+                                  <td>{{ActionCoordinator}}</td>
+                                </tr>
+                            <tr>
+                              <td>Datum der Aufnahme in</td>
+                              <td>{{ recordingDate | date : "dd-MM-yyyy"}}</td>
+                            </tr>
+                            <tr>
+                                <td>Ressort.Name</td>
+                                <td>{{ressort}}</td>
+                            </tr>
+                            <tr>
+                              <td>Auswahl der Einzelpläne</td>
+                              <td>{{section}}</td>
+                            </tr>
+                            <tr>
+                              <td>Produkt.Nummer</td>
+                              <td>{{product}}</td>
+                            </tr>
+                            <tr>
+                              <td>Innenauftragnr</td>
+                              <td>{{interiorRef}}</td>
+                            </tr>
+                            <tr>
+                                <td>Haushaltstitel</td>
+                                <td>{{title}}</td>
+                            </tr>
+                            <tr>
+                                <td>Liste der Programme</td>
+                                <td>{{selectedPrograms}}</td>
+                            </tr>
+                            <tr>
+                              <td>Liste der Zuführungen</td>
+                              <td>{{selectedFeeds}}</td>
+                            </tr>
+                            <tr>
+                                <td>Relevant für MFP</td>
+                                <td>{{relevantForMFP}}</td>
+                            </tr>
+                            <tr>
+                              <td>Nutzer.Name</td>
+                              <td>{{user}}</td>
+                            </tr>
+                            <tr>
+                              <td>Standort.Name</td>
+                              <td>{{location}}</td>
+                            </tr>
+
+
+
+
+
+
+
+                          </tbody>
+                      </table>
+                  </div>
+            </div>
+
+
+      </div> <!-- border-box -->
+
+       </div> <!--tab closed -->
+
+          </div>
+
+          </div>
+          </div>
+       </div>
+
+
+  </div>
+  <!-- .animated -->
+</div>
+<!-- /.content -->
