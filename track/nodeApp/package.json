@@ -18,7 +18,7 @@
     "express": "^4.16.4",
     "google-distance": "^1.0.1",
     "image-downloader": "^3.4.2",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^9.0.0",
     "md5": "^2.2.1",
     "mongoose": "^5.4.9",
     "morgan": "^1.9.1",
